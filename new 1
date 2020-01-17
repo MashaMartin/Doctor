@@ -1,0 +1,53 @@
+else if($user=="doctor")	
+	{
+				
+		$_SESSION['adminstatus']="";
+							
+				
+		if(isset($_POST["login_btn"]))
+		{
+			$query= "SELECT * FROM doctor WHERE userid= '" . $_POST["loginName"]."' AND password= '" . $_POST["password"]."'";
+			$query_run = mysqli_query($conn,$query);
+			if (mysqli_num_rows($query_run)> 0) 
+				{
+						$_SESSION["userid"]= $_POST["loginName"];
+						$_SESSION['adminstatus']= "yes";
+						header('location:doctors/myDetails.php');
+						echo "<span style='color:red;'>Logged in successfully</span>";
+								
+				} else 
+				{
+						echo '<script type="text/javascript">alert("Incorrect username or password") <script>';
+				}
+							
+		}
+		
+		
+				
+	}
+	else if($user=="admin")	
+	{
+			$_SESSION['adminstatus']="";
+			$username=$_POST["loginName"];
+			$password=$_POST["password"];
+							
+			if(isset($_POST["login_btn"]))
+			{
+
+				$query = "SELECT * FROM test WHERE username= '$loginName' AND password= '$password'";
+				$query_run =mysqli_query($conn,$query);
+
+				if(mysqli_num_rows($query_run) > 0) 
+					{
+						$_SESSION["username"]= $_POST["loginName"];
+						$_SESSION['adminstatus']= "yes";
+						header('location:test.php');
+						echo '<script type="text/javascript">alert("Logined in ") <script>';
+					} 
+					else 
+					{
+						echo '<script type="text/javascript">alert("Incorrect username or password") <script>';
+					}
+								
+			}
+	}
